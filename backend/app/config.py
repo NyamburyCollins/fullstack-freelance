@@ -2,13 +2,10 @@
 import os
 
 class Config:
-    # Use environment variable for DB URI or fallback to SQLite
     SQLALCHEMY_DATABASE_URI = os.environ.get(
-        "DATABASE_URL", "sqlite:///app.db"
+        "DATABASE_URL", "postgresql://freelance_postgres_user:KuIMQY2aLiUUZLHI5fYLxfQWNLFTe5wX@dpg-d1gjk77fte5s738nrp80-a/freelance_postgres"
     )
 
-    # Disable SQLAlchemy event system (recommended for performance)
     SQLALCHEMY_TRACK_MODIFICATIONS = False
 
-    # Secret key for JWT auth
     JWT_SECRET_KEY = os.environ.get("JWT_SECRET_KEY", "mary6539")
