@@ -1,35 +1,92 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
 
-function App() {
-  const [count, setCount] = useState(0)
 
-  return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+import React from 'react';
+import {
+  BrowserRouter,
+  Routes,
+  Route,
+  Navigate,
+  useLocation,
+} from 'react-router-dom';
+
+import { AuthProvider } from './components/AuthContext';
+import { useAuth } from './components/AuthContext';
+
+import ProtectedRoute from './components/ProtectedRoute';
+import Unauthorized from './components/Unauthorized';
+
+import Login from './components/Login';
+import Signup from './components/Signup';
+import ResetPassword from './components/ResetPassword';
+import Dashboard from './components/Dashboard';
+import Services from './components/Services';
+import ServiceDetails from './components/ServiceDetails';
+import Profile from './components/Profile';
+import AdminPanel from './components/AdminPanel';
+import LandingPage from './components/LandingPage';
+import PostProject from './components/PostProject';
+import HireFreelancer from './components/HireFreelancer';
+import MyApplications from './components/MyApplications';
+import SidebarLayout from './components/SidebarLayout';
+
+function AppLayout({ children }) {
+  const location = useLocation();
+  const hideNavbarOn = ['/', '/login', '/signup', '/reset-password'];
+  return <>{children}</>;
 }
 
-export default App
+function AppRoutes() {
+  return (
+    <Routes>
+      <Route path="/" element={<LandingPage />} />
+      <Route path="/login" element={<Login />} />
+      <Route path="/signup" element={<Signup />} />
+      <Route path="/reset-password" element={<ResetPassword />} />
+
+      <Route
+        path="/"
+        element={
+          <ProtectedRoute>
+            <SidebarLayout />
+          </ProtectedRoute>
+        }
+      >
+        <Route path="dashboard" element={<Dashboard />} />
+        <Route path="profile" element={<Profile />} />
+        <Route path="postproject" element={<PostProject />} />
+        <Route path="hire" element={<HireFreelancer />} />
+        <Route path="services" element={<Services />} />
+        <Route path="services/:id" element={<ServiceDetails />} />
+        <Route path="/unauthorized" element={<Unauthorized />} />
+
+        <Route path="applicationcard" element={<div>ApplicationCard Component</div>} />
+        <Route path="myapplications" element={<MyApplications />} />
+        <Route
+  path="admin"
+  element={
+    <ProtectedRoute requiredRole="admin">
+      <AdminPanel />
+    </ProtectedRoute>
+  }
+/>
+
+      </Route>
+
+      <Route path="*" element={<Navigate to="/" />} />
+    </Routes>
+  );
+}
+
+function App() {
+  return (
+    <AuthProvider>
+      <BrowserRouter>
+        <AppLayout>
+          <AppRoutes />
+        </AppLayout>
+      </BrowserRouter>
+    </AuthProvider>
+  );
+}
+
+export default App;
