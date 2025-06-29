@@ -23,6 +23,7 @@ export default API;
 /*
 import axios from "axios";
 https://fullstack-freelance.onrender.com/
+https://fullstack-freelance.onrender.com/
 const API = axios.create({
   baseURL: "http://127.0.0.1:5003",
   headers: {
