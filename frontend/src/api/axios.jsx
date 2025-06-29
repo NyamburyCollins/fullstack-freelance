@@ -2,6 +2,28 @@
 import axios from "axios";
 
 const API = axios.create({
+  baseURL: "https://fullstack-freelance.onrender.com",
+  headers: {
+    'Content-Type': 'application/json',
+  },
+  withCredentials: true,
+});
+
+API.interceptors.request.use((config) => {
+  const token = localStorage.getItem('token');
+  if (token) {
+    config.headers.Authorization = `Bearer ${token}`;
+  }
+  return config;
+});
+
+export default API;
+
+
+/*
+import axios from "axios";
+https://fullstack-freelance.onrender.com/
+const API = axios.create({
   baseURL: "http://127.0.0.1:5003",
   headers: {
     'Content-Type': 'application/json',
@@ -20,3 +42,4 @@ API.interceptors.request.use((config) => {
 export default API;
 
 
+*/
