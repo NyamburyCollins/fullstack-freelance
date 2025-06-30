@@ -19,11 +19,12 @@ def create_app():
     jwt.init_app(app)
     migrate.init_app(app, db)
 
-    CORS(app, origins=["https://freelance-sandy-theta.vercel.app"], supports_credentials=True)
-
+    CORS(app, origins=[
+        "https://freelance-sandy-theta.vercel.app",
+        "https://freelance-olhcnis9v-marylyne-otienos-projects.vercel.app"
+    ], supports_credentials=True)
 
     from .models import User, Service, Application, Category
-
     from .resources import register_resources
     from .auth import register_user_resources
 
