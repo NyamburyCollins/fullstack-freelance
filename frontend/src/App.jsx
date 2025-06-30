@@ -53,11 +53,26 @@ function AppRoutes() {
       >
         <Route path="dashboard" element={<Dashboard />} />
         <Route path="profile" element={<Profile />} />
-        <Route path="postproject" element={<PostProject />} />
-        <Route path="hire" element={<HireFreelancer />} />
         <Route path="services" element={<Services />} />
         <Route path="services/:id" element={<ServiceDetails />} />
         <Route path="/unauthorized" element={<Unauthorized />} />
+<Route
+  path="/postproject"
+  element={
+    <ProtectedRoute requiredRole="client">
+      <PostProject />
+    </ProtectedRoute>
+  }
+/>
+
+<Route
+  path="/hire"
+  element={
+    <ProtectedRoute requiredRole="client">
+      <HireFreelancer />
+    </ProtectedRoute>
+  }
+/>
 
         <Route path="applicationcard" element={<div>ApplicationCard Component</div>} />
         <Route path="myapplications" element={<MyApplications />} />
