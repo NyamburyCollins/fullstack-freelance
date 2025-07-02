@@ -2,7 +2,7 @@ import React from 'react';
 import { Link, Outlet, useNavigate } from 'react-router-dom';
 import { useAuth } from './AuthContext';
 
-export default function DashboardLayout() {
+ function DashboardLayout() {
   const { user, logout } = useAuth();
   const navigate = useNavigate();
 
@@ -39,3 +39,4 @@ export default function DashboardLayout() {
 
 
 
+export default DashboardLayout;

@@ -91,7 +91,9 @@ File uploads (e.g., resumes or portfolios)
 
 Notification system
 
-🧑‍💻 Author
+🧑‍💻 Author 
+Collins Nyambury $ 
 Marylyne Otieno
 GitHub: marylyne otieno
+GitHub: NyamburyCollins
 
